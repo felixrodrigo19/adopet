@@ -23,8 +23,8 @@ class User(UserMixin, Model):
     created_at = get_update_date(column="created_at")
     updated_at = get_update_date(column="updated_at")
 
-    def __repr__(self):
-        return self.username
+    def __repr__(self) -> str:
+        return f"{self.username}"
 
     def is_active(self):
         return self.is_active
@@ -37,8 +37,8 @@ class State(Model):
     id_state = Column("id_state", Integer, primary_key=True, autoincrement=True)
     description = Column("description", String(60), nullable=False)
 
-    def __repr__(self):
-        return self.description
+    def __repr__(self) -> str:
+        return f"{self.description}"
 
 
 class City(Model):
@@ -48,8 +48,8 @@ class City(Model):
 
     state = relationship("State", foreign_keys=id_state)
 
-    def __repr__(self):
-        return self.description
+    def __repr__(self) -> str:
+        return f"{self.description}"
 
 
 class Perfil(Model):
@@ -65,6 +65,9 @@ class Perfil(Model):
     user = relationship("User", foreign_keys=id_user)
     city = relationship("City", foreign_keys=id_city)
 
+    def __repr__(self) -> str:
+        return self.user
+
 
 class Pet(Model):
     id_pet = Column("id_pet", Integer, primary_key=True, autoincrement=True)
@@ -74,9 +77,29 @@ class Pet(Model):
     id_responsible = Column("id_responsible", Integer, ForeignKey("User.id_user"))
     created_at = get_update_date(column="created_at")
     updated_at = get_update_date(column="updated_at")
+    name = Column("name", String(60), nullable=False)
 
     location = relationship("City", foreign_keys=id_location)
     user = relationship("User", foreign_keys=id_responsible)
+
+    def __repr__(self) -> str:
+        return f"{self.name}"
+
+
+class Contact(Model):
+    id_contact = Column("id_contact", Integer, primary_key=True, autoincrement=True)
+    e_mail = Column("e-mail", String(120), nullable=False)
+    message = Column("message", String(300), nullable=False)
+    created_at = get_update_date(column="created_at")
+    updated_at = get_update_date(column="updated_at")
+    id_perfil = Column("id_perfil", Integer, ForeignKey("Perfil.id_perfil"))
+    id_pet = Column("id_pet", Integer, ForeignKey("Pet.id_pet"))
+
+    perfil = relationship("Perfil", foreign_keys=id_perfil)
+    pet = relationship("Pet", foreign_keys=id_pet)
+
+    def __repr__(self) -> str:
+        return f"{self.e_mail} - {self.perfil}"
 
 
 def init_app(app):
