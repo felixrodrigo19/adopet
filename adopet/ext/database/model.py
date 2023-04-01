@@ -34,7 +34,7 @@ class User(UserMixin, Model):
 
 
 class State(Model):
-    id_state = Column("id_state", db.Integer, primary_key=True, autoincrement=True)
+    id_state = Column("id_state", Integer, primary_key=True, autoincrement=True)
     description = Column("description", String(60), nullable=False)
 
     def __repr__(self):
@@ -42,7 +42,7 @@ class State(Model):
 
 
 class City(Model):
-    id_city = Column("id_city", db.Integer, primary_key=True, autoincrement=True)
+    id_city = Column("id_city", Integer, primary_key=True, autoincrement=True)
     description = Column("description", String(60), nullable=False)
     id_state = Column("id_state", Integer, ForeignKey("state.id_state"))
 
@@ -53,7 +53,7 @@ class City(Model):
 
 
 class Perfil(Model):
-    id_perfil = db.Column("id_perfil", db.Integer, primary_key=True, autoincrement=True)
+    id_perfil = db.Column("id_perfil", Integer, primary_key=True, autoincrement=True)
     phone = Column("phone", String(35), nullable=False)
     image = ...
     about_me = Column("about_me", String(90))
@@ -64,6 +64,19 @@ class Perfil(Model):
 
     user = relationship("User", foreign_keys=id_user)
     city = relationship("City", foreign_keys=id_city)
+
+
+class Pet(Model):
+    id_pet = Column("id_pet", Integer, primary_key=True, autoincrement=True)
+    age = Column("age", String(16), nullable=False)
+    description = Column("description", String(120), nullable=False)
+    id_location = Column("id_location", Integer, ForeignKey("City.id_city"))
+    id_responsible = Column("id_responsible", Integer, ForeignKey("User.id_user"))
+    created_at = get_update_date(column="created_at")
+    updated_at = get_update_date(column="updated_at")
+
+    location = relationship("City", foreign_keys=id_location)
+    user = relationship("User", foreign_keys=id_responsible)
 
 
 def init_app(app):
