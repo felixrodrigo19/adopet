@@ -4,7 +4,7 @@ from flask import Flask
 from flask_login import UserMixin
 from flask_sqlalchemy import SQLAlchemy
 from flask_sqlalchemy.model import Model
-from sqlalchemy import Column, Integer, String, Date, ForeignKey, create_engine
+from sqlalchemy import Column, Integer, String, Date, ForeignKey, create_engine, text
 from sqlalchemy.orm import relationship
 
 db = SQLAlchemy()
@@ -107,12 +107,14 @@ def init_app(app):
     db.init_app(app)
 
 
-def create_db(connection: str, app: Flask, dbname:str):
+def create_db(connection: str, app: Flask, dbname: str):
     engine = create_engine(connection)
 
     with engine.connect() as conn:
         db_exists = conn.execute(
-            f"SELECT EXISTS(SELECT datname FROM pg_database WHERE datname = {dbname});"
+            text(
+                f"SELECT EXISTS(SELECT datname FROM pg_database WHERE datname = {dbname});"
+            )
         ).scalar()
 
     if db_exists:
