@@ -9,5 +9,5 @@ def init_app() -> Flask:
     app = Flask(__name__)
     FlaskDynaconf(app)
     database.init_app(app=app)
-    create_db(connection='postgresql://user:password@host:port/dbname', dbname="dbname", app=app)
+    create_db(app=app)
     return app

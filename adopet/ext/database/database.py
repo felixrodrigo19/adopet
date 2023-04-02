@@ -107,19 +107,12 @@ def init_app(app):
     db.init_app(app)
 
 
-def create_db(connection: str, app: Flask, dbname: str):
-    engine = create_engine(connection)
-
-    with engine.connect() as conn:
-        db_exists = conn.execute(
-            text(
-                f"SELECT EXISTS(SELECT datname FROM pg_database WHERE datname = {dbname});"
-            )
-        ).scalar()
-
-    if db_exists:
-        print("Database exists!")
-    else:
+def create_db(app: Flask):
+    try:
         with app.app_context():
             db.init_app(app)
             db.create_all()
+
+    except Exception as exc:  # noqa
+        print("Database exists!\n"
+              f"{exc}")
