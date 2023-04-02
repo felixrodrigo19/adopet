@@ -4,7 +4,7 @@ from flask import Flask
 from flask_login import UserMixin
 from flask_sqlalchemy import SQLAlchemy
 from flask_sqlalchemy.model import Model
-from sqlalchemy import Column, Integer, String, Date, ForeignKey, create_engine, text
+from sqlalchemy import Column, Integer, String, Date, ForeignKey
 from sqlalchemy.orm import relationship
 
 db = SQLAlchemy()
