@@ -1,6 +1,5 @@
 from datetime import datetime
 
-from flask import Flask
 from flask_login import UserMixin
 from flask_sqlalchemy import SQLAlchemy
 from flask_sqlalchemy.model import Model
@@ -105,12 +104,8 @@ class Contact(Model):
 
 def init_app(app):
     db.init_app(app)
-
-
-def create_db(app: Flask):
     try:
         with app.app_context():
-            db.init_app(app)
             db.create_all()
 
     except Exception as exc:  # noqa
