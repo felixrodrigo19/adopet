@@ -104,10 +104,3 @@ class Contact(Model):
 
 def init_app(app):
     db.init_app(app)
-    try:
-        with app.app_context():
-            db.create_all()
-
-    except Exception as exc:  # noqa
-        print("Database exists!\n"
-              f"{exc}")
