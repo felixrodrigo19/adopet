@@ -12,8 +12,6 @@ SQLALCHEMY_DATABASE_URI = 'postgresql://postgres:postgres@db/adopet'
 
 
 [development]
-DEBUG = true
-SQLALCHEMY_DATABASE_URI = "postgresql://postgres:postgres@db/adopet-demo"
-ADMIN_NAME = "Admin demo"
+
 
 [production]
