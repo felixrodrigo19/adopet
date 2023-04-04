@@ -1,6 +1,6 @@
 from flask_migrate import Migrate
 
-from adopet.ext.database import database
+from adopet.ext.models import database
 
 migrate = Migrate()
 
