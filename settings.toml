@@ -1,0 +1,17 @@
+[default]
+DEBUG = true
+FLASK_ADMIN_SWATCH = "cerulean"
+ADMIN_NAME = "Painel Adm"
+PERMANENT_SESSION_LIFETIME = 3600
+SQLALCHEMY_TRACK_MODIFICATIONS = true
+FLASK_ADMIN_FLUID_LAYOUT = true
+BABEL_DEFAULT_LOCALE = "pt"
+BABEL_DEFAULT_TIMEZONE = "America/Sao_Paulo"
+SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://postgres:postgrespw@localhost:32768/adopet'
+
+
+
+[development]
+
+
+[production]
